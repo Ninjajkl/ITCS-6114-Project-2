@@ -10,74 +10,63 @@ namespace ITCS_6114_Project_2
     {
         public static void Dijkstra(Graph graph)
         {
-            var frontier = new PriorityQueue<string, int>();
-            var distances = new Dictionary<string, int>();
-            var previous = new Dictionary<string, string>();
-            foreach (var vertex in graph.Vertices)
+            var frontier = new PriorityQueue<Graph.Vertex, int>();
+            foreach (var vertex in graph.Vertices.Values)
             {
-                distances[vertex.Key] = int.MaxValue;
+                vertex.Dist = int.MaxValue;
+                vertex.Parent = null;
             }
-            distances[graph.SourceNode] = 0;
+            graph.SourceNode.Dist = 0;
 
             frontier.Enqueue(graph.SourceNode, 0);
 
             while (frontier.Count > 0)
             {
                 var curr = frontier.Dequeue();
-                if(!graph.Vertices.ContainsKey(curr))
-                {
-                    continue;
-                }
-                foreach (var edge in graph.Vertices[curr].Edges)
+                foreach (var edge in curr.Edges)
                 {
                     var adjVer = edge.To;
-                    int newDist = distances[curr] + edge.Weight;
+                    int newDist = curr.Dist + edge.Weight;
 
-                    if (newDist < distances[adjVer])
+                    if (newDist < adjVer.Dist)
                     {
-                        distances[adjVer] = newDist;
-                        previous[adjVer] = curr;
+                        adjVer.Dist = newDist;
+                        adjVer.Parent = curr;
                         frontier.Enqueue(adjVer, newDist);
                     }
                 }
             }
 
-            PrintDijkstra(graph.SourceNode, distances, previous);
+            PrintDijkstra(graph);
         }
 
-        private static void PrintDijkstra(string source, Dictionary<string, int> distances, Dictionary<string, string?> previous)
+        public static void PrintDijkstra(Graph graph)
         {
-            Console.WriteLine($"Shortest paths from source {source}:");
-            foreach (var vertex in distances.Keys)
+            Console.WriteLine("Shortest paths from the source node:");
+            foreach (var vertex in graph.Vertices.Values)
             {
-                if (distances[vertex] == int.MaxValue)
+                if (vertex.Dist == int.MaxValue)
                 {
-                    Console.WriteLine($"{vertex} is unreachable from {source}");
+                    Console.WriteLine($"{vertex.Name} is unreachable from {graph.SourceNode.Name}");
                 }
                 else
                 {
-                    Console.Write($"{vertex} (Cost: {distances[vertex]}): ");
-                    PrintPath(vertex, previous);
+                    Console.Write($"{vertex.Name}: {vertex.Dist} via ");
+                    PrintPath(vertex);
                     Console.WriteLine();
                 }
             }
         }
 
-        private static void PrintPath(string vertex, Dictionary<string, string?> previous)
+        private static void PrintPath(Graph.Vertex vertex)
         {
-            var path = new Stack<string>();
-            while (vertex != null)
+            if (vertex.Parent == null)
             {
-                path.Push(vertex);
-                previous.TryGetValue(vertex, out var value);
-                vertex = value;
+                Console.Write(vertex.Name);
+                return;
             }
-
-            while (path.Count > 0)
-            {
-                Console.Write(path.Pop());
-                if (path.Count > 0) Console.Write(" -> ");
-            }
+            PrintPath(vertex.Parent);
+            Console.Write($" -> {vertex.Name}");
         }
     }
 }

@@ -1,0 +1,22 @@
+15 20 U
+E A 40
+L A 72
+B K 26
+L M 95
+B G 29
+N M 41
+J C 91
+C H 42
+O H 93
+D A 55
+H G 85
+F E 62
+B J 73
+D K 71
+K N 1
+G C 76
+L O 91
+E K 16
+A M 78
+M I 63
+A

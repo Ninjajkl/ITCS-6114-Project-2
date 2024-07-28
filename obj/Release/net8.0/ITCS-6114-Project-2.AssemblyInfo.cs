@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ITCS-6114-Project-2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+30d3f8c00cabd3e3f8f15c61ce7ec882af606155")]
 [assembly: System.Reflection.AssemblyProductAttribute("ITCS-6114-Project-2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ITCS-6114-Project-2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

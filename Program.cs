@@ -37,7 +37,7 @@ Graph DGraph1 = new(File.ReadAllLines($"{filePath}/D1.txt"));
 DGraph1.PrintGraph();
 ShortestPath.Dijkstra(DGraph1);
 
-Console.WriteLine($"\nDirected Graph 3\n");
+Console.WriteLine($"\nDirected Graph 2\n");
 
 Graph DGraph2 = new(File.ReadAllLines($"{filePath}/D2.txt"));
 DGraph2.PrintGraph();
@@ -45,6 +45,7 @@ ShortestPath.Dijkstra(DGraph2);
 #endregion Shortest Path Algorithm
 
 #region Minimum Spanning Tree Algorithm
+
 Console.WriteLine($"\nMinimum Spanning Trees\n\nGraph 1\n");
 Graph MGraph1 = new(File.ReadAllLines($"{filePath}/CU1.txt"));
 MGraph1.PrintGraph();

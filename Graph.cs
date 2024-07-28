@@ -12,7 +12,7 @@ public class Graph
     public int EdgesCount { get; private set; }
     public bool IsDirected { get; private set; }
     public Dictionary<string, Vertex> Vertices { get; private set; }
-    public string? SourceNode { get; private set; }
+    public Vertex SourceNode { get; private set; }
 
     public Graph(string[] lines)
     {
@@ -33,7 +33,7 @@ public class Graph
             AddEdge(from, to, weight);
         }
 
-        SourceNode = lines[EdgesCount + 1];
+        SourceNode = Vertices[lines[EdgesCount + 1]];
     }
     public void AddEdge(string from, string to, int weight)
     {
@@ -49,11 +49,11 @@ public class Graph
             Vertices[to] = toV;
         }
 
-        fromV.Edges.Add(new Edge(to, weight));
+        fromV.Edges.Add(new Edge(toV, weight));
 
         if (!IsDirected)
         {
-            toV.Edges.Add(new Edge(from, weight));
+            toV.Edges.Add(new Edge(fromV, weight));
         }
     }
 
@@ -61,20 +61,24 @@ public class Graph
     {
         public string Name { get; private set; }
         public List<Edge> Edges { get; private set; }
+        public int Dist { get; set; }
+        public Vertex Parent { get; set; }
 
         public Vertex(string name)
         {
             Name = name;
             Edges = new List<Edge>();
+            Dist = int.MaxValue;
+            Parent = null;
         }
     }
 
     public class Edge
     {
-        public string To { get; private set; }
+        public Vertex To { get; private set; }
         public int Weight { get; private set; }
 
-        public Edge(string to, int weight)
+        public Edge(Vertex to, int weight)
         {
             To = to;
             Weight = weight;
@@ -85,17 +89,14 @@ public class Graph
     {
         Console.WriteLine($"Graph has {VerticesCount} vertices and {EdgesCount} edges.");
         Console.WriteLine(IsDirected ? "The graph is directed." : "The graph is undirected.");
-        if (!string.IsNullOrEmpty(SourceNode))
-        {
-            Console.WriteLine($"The source node is: {SourceNode}");
-        }
+        Console.WriteLine($"The source node is: {SourceNode.Name}");
 
         foreach (var vertex in Vertices.Values)
         {
             Console.Write($"{vertex.Name}: ");
             foreach (var edge in vertex.Edges)
             {
-                Console.Write($"({edge.To}, {edge.Weight}) ");
+                Console.Write($"({edge.To.Name}, {edge.Weight}) ");
             }
             Console.WriteLine();
         }

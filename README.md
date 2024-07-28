@@ -1,7 +1,13 @@
 INSTRUCTIONS TO RUN
 
 Download Project
-Go to "ITCS-6114-Project-2\Publish\"
+Go to "ITCS-6114-Project-2\ITCS-6114-Project-2\"
+
+Run "ITCS-6114-Project-2.exe"
+
+OR if extracting from ZIP
+
+Extract ITCS-6114-Project-2
 
 Run "ITCS-6114-Project-2.exe"
 

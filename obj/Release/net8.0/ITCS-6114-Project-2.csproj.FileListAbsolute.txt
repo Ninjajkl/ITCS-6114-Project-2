@@ -12,3 +12,4 @@ C:\Users\Ninja\Documents\School Shit\School Shit 2024 Summer\ITCS 6114-81\ITCS-6
 C:\Users\Ninja\Documents\School Shit\School Shit 2024 Summer\ITCS 6114-81\ITCS-6114-Project-2\obj\Release\net8.0\ITCS-6114-Project-2.pdb
 C:\Users\Ninja\Documents\School Shit\School Shit 2024 Summer\ITCS 6114-81\ITCS-6114-Project-2\obj\Release\net8.0\ITCS-6114-Project-2.genruntimeconfig.cache
 C:\Users\Ninja\Documents\School Shit\School Shit 2024 Summer\ITCS 6114-81\ITCS-6114-Project-2\obj\Release\net8.0\ref\ITCS-6114-Project-2.dll
+C:\Users\Ninja\Documents\School Shit\School Shit 2024 Summer\ITCS 6114-81\ITCS-6114-Project-2\obj\Release\net8.0\ITCS-6114-Project-2.sourcelink.json

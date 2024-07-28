@@ -3,53 +3,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ITCS_6114_Project_2.Graph;
 
 namespace ITCS_6114_Project_2;
 public class MinSpanningTree
 {
     public static void Prim(Graph graph)
     {
-        var startNode = graph.Vertices.First().Key;
-        var mstEdges = new List<(string, string, int)>();
-        var totalCost = 0;
-
-        var visited = new HashSet<string>();
-        var priorityQueue = new PriorityQueue<(string, string, int), int>();
-
-        visited.Add(startNode);
-        foreach (var edge in graph.Vertices[startNode].Edges)
+        var frontier = new PriorityQueue<Vertex, int>();
+        var visited = new HashSet<Vertex>();
+        //I just reuse the Dist variable in for key
+        foreach (var vertex in graph.Vertices.Values)
         {
-            priorityQueue.Enqueue((startNode, edge.To, edge.Weight), edge.Weight);
+            vertex.Dist = int.MaxValue;
+            vertex.Parent = null;
         }
-
-        while (priorityQueue.Count > 0 && visited.Count < graph.Vertices.Count)
+        graph.SourceNode.Dist = 0;
+        frontier.Enqueue(graph.SourceNode, 0);
+        while (frontier.Count > 0)
         {
-            var (from, to, weight) = priorityQueue.Dequeue();
-            if (!visited.Contains(to))
+            var curr = frontier.Dequeue();
+            if (visited.Contains(curr))
             {
-                visited.Add(to);
-                mstEdges.Add((from, to, weight));
-                totalCost += weight;
-
-                foreach (var edge in graph.Vertices[to].Edges)
+                continue;
+            }
+            visited.Add(curr);
+            foreach (var edge in curr.Edges)
+            {
+                if (!visited.Contains(edge.To) && edge.Weight < edge.To.Dist)
                 {
-                    if (!visited.Contains(edge.To))
-                    {
-                        priorityQueue.Enqueue((to, edge.To, edge.Weight), edge.Weight);
-                    }
+                    edge.To.Parent = curr;
+                    edge.To.Dist = edge.Weight;
+                    frontier.Enqueue(edge.To, edge.To.Dist);
                 }
             }
         }
 
-        PrintMST(mstEdges, totalCost);
+        PrintPrim(graph);
     }
 
-    private static void PrintMST(List<(string, string, int)> edges, int totalCost)
+    public static void PrintPrim(Graph graph)
     {
+        int totalCost = 0;
         Console.WriteLine("Minimum Spanning Tree Edges:");
-        foreach (var (from, to, weight) in edges)
+        foreach (var vertex in graph.Vertices.Values)
         {
-            Console.WriteLine($"{from} - {to}: {weight}");
+            if (vertex.Parent != null)
+            {
+                Console.WriteLine($"{vertex.Parent.Name} - {vertex.Name}: {vertex.Dist}");
+                totalCost += vertex.Dist;
+            }
         }
         Console.WriteLine($"Total Cost: {totalCost}");
     }
